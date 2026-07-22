@@ -39,15 +39,15 @@ The full contract is in [`AGENTS.md`](AGENTS.md).
 
 ## Native agent roles
 
-| Role | Default model | Sandbox | Intended use |
-| --- | --- | --- | --- |
-| `source_explorer` | `gpt-5.6-luna` | read-only | Direct repository reconstruction and impact evidence. |
-| `codeindexer_explorer` | `gpt-5.6-luna` | read-only | Indexed semantic, symbol, and dependency discovery. |
-| `mech_executor` | `gpt-5.6-terra` | workspace-write | One bounded implementation after explicit edit-custody transfer. |
-| `test_runner` | `gpt-5.6-luna` | workspace-write | Tests, builds, linters, and smoke checks without source edits. |
-| `reviewer` | `gpt-5.6-terra` | read-only | Independent correctness and regression review. |
-| `security_reviewer` | `gpt-5.6-sol` | read-only | Focused security, privacy, credential, and authorization review. |
-| `scout` | inherited | read-only | Local runtime and operational-state observation. |
+| Role | Default model | Effort | Sandbox | Intended use |
+| --- | --- | --- | --- | --- |
+| `source_explorer` | `gpt-5.6-luna` | `medium` | read-only | Direct repository reconstruction and impact evidence. |
+| `codeindexer_explorer` | `gpt-5.6-luna` | `medium` | read-only | Indexed semantic, symbol, and dependency discovery. |
+| `mech_executor` | `gpt-5.6-terra` | `medium` | workspace-write | One bounded implementation after explicit edit-custody transfer. |
+| `test_runner` | `gpt-5.6-luna` | `low` | workspace-write | Tests, builds, linters, and smoke checks without source edits. |
+| `reviewer` | `gpt-5.6-terra` | `high` | read-only | Independent correctness and regression review. |
+| `security_reviewer` | `gpt-5.6-sol` | `high` | read-only | Focused security, privacy, credential, and authorization review. |
+| `scout` | `gpt-5.6-luna` | `medium` | read-only | Local runtime and operational-state observation. |
 
 Model identifiers reflect the source environment. Replace them with models
 available in the target Codex installation when necessary.
@@ -56,7 +56,8 @@ available in the target Codex installation when necessary.
 
 The example records these current choices without copying generated state:
 
-- primary model `gpt-5.6-sol` with `ultra` reasoning;
+- no top-level model or reasoning-effort override: the main session keeps the
+  model and effort selected by the user;
 - up to four native agent threads and one level of child delegation;
 - official OpenAI developer-documentation MCP;
 - loopback CodeIndexer MCP at `http://127.0.0.1:8978/mcp`;
