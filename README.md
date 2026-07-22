@@ -1,5 +1,11 @@
 # Codex agent configuration
 
+## Repository family
+
+- [Codex Claude Orchestrator](https://github.com/coredo-eu/codex-claude-orchestrator) — local Codex-to-Claude worker transport, ownership policy, and lifecycle controls.
+- [Codex agent configuration](https://github.com/coredo-eu/codex-agent-config) — portable Codex guidance, native-agent roles, and configuration template.
+- [Claude agent configuration](https://github.com/coredo-eu/claude-agent-config) — portable standalone Claude guidance, agents, permissions, and CodeIndexer hook.
+
 Portable snapshot of the current Codex agent-working policy and native agent
 roles. This repository contains declarative configuration only.
 
