@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*.local.*
+credentials*
+auth*
+sessions/
+cache/
+log/
+logs/
+runtime/
+tmp/
+claude-pty-*/
