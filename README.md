@@ -1,15 +1,41 @@
 # Codex agent configuration
 
+This repository is a portable configuration package for Codex. It provides an
+authority and ownership contract plus seven optional specialist role
+definitions. It is not an orchestration runtime, and it does not define a
+seven-agent pipeline.
+
+## Seven roles, not seven running agents
+
+The role files are a capability catalog. Installing all seven makes them
+available to Codex; it does not make Codex launch all seven for every task.
+
+- Most routine tasks should stay with the main Codex session and use no native
+  agent at all.
+- When delegation has clear value, a task will normally use one bounded
+  specialist. Independent read-only investigations may run in parallel when
+  that reduces total cost or elapsed time.
+- `source_explorer` and `codeindexer_explorer` are alternative discovery paths,
+  not consecutive stages.
+- `reviewer` and `security_reviewer` are selected only when the consequence and
+  uncertainty justify independent review; they are not automatic gates.
+- `scout`, `mech_executor`, and `test_runner` cover distinct runtime, edit, and
+  verification boundaries. Their availability is not a requirement to invoke
+  them.
+
+The intended topology is therefore the smallest useful one: direct Codex by
+default, then only the role or roles that materially improve the outcome. Role
+count describes available boundaries, not concurrency or workflow length.
+
 ## Repository family
 
 - [Codex Claude Orchestrator](https://github.com/coredo-eu/codex-claude-orchestrator) — local Codex-to-Claude worker transport, ownership policy, and lifecycle controls.
 - [Codex agent configuration](https://github.com/coredo-eu/codex-agent-config) — portable Codex guidance, native-agent roles, and configuration template.
 - [Claude agent configuration](https://github.com/coredo-eu/claude-agent-config) — portable standalone Claude guidance, agents, permissions, and CodeIndexer hook.
 
-This repository is a portable, public snapshot of an opinionated Codex
-agent-working setup. It captures the policy and role definitions that determine
-how work is owned, delegated, verified, and handed back. It contains no Codex
-runtime, account data, or machine state.
+The snapshot captures the policy and role definitions that determine how work
+is owned, delegated, verified, and handed back. It contains no Codex runtime,
+account data, or machine state.
 
 ## Operating model
 
