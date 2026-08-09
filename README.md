@@ -52,6 +52,13 @@ The full contract is in [`AGENTS.md`](AGENTS.md).
 Model identifiers reflect the source environment. Replace them with models
 available in the target Codex installation when necessary.
 
+These seven roles are the canonical semantic taxonomy for this repository
+family. Each product surface supplies an adapter for its own agent names,
+tools, permissions, and configuration format: native Codex definitions live in
+this repository, while Claude-facing configuration is maintained in its own
+repository. The adapters preserve role intent and the goal-contract vocabulary;
+they are intentionally not byte-identical configuration files.
+
 ## Configuration snapshot
 
 The example records these current choices without copying generated state:
@@ -94,18 +101,14 @@ entries wholesale.
 
 ## Validation
 
-The tracked TOML files can be parsed with Python 3.11 or newer:
+Run the deterministic repository validator with Python 3.11 or newer:
 
 ```bash
-python3 - <<'PY'
-import pathlib, tomllib
-
-tomllib.loads(pathlib.Path("config.example.toml").read_text())
-for path in pathlib.Path("agents").glob("*.toml"):
-    tomllib.loads(path.read_text())
-print("configuration: OK")
-PY
+python3 scripts/validate.py
 ```
+
+It validates the exact seven-role TOML inventory, each role's model, reasoning
+effort, and sandbox, plus the canonical goal-contract and README role table.
 
 ## Deliberate exclusions
 
