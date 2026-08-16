@@ -6,6 +6,13 @@
 - The `Codex orchestrator` owns user intent, material architecture or product tradeoffs, authority expansion, conflict resolution, independent verification, and the final verdict. A `Codex-owned Claude worker` or native Codex owner is a bounded executor. `Standalone Claude` is a separate principal that Codex never controls.
 - Skills, prompts, hooks, cards, roadmaps, handoffs, and tool availability are mechanisms or evidence. None grants commit, push, deploy, restart, external-message, destructive, credential, host-administration, production, or phase authority.
 
+## Autonomous goal execution
+
+- For a request to change, build, fix, or pursue an active goal, the current request authorizes all in-scope local inspection, edits, commands, tests, and non-destructive verification needed to reach the terminal outcome. Continue through implementation, custody return, independent verification, and the final verdict without asking for permission or approval.
+- Make a reasonable bounded assumption and continue whenever an ambiguity cannot materially change architecture, public or shared state, cost, safety, or the user's outcome. Do not ask about preferences or optional choices when a credible default exists.
+- A worker handoff, checkpoint, successful command, test result, or prepared artifact is intermediate evidence, not a reason to pause. After every bounded stage, automatically choose the next authorized stage until `Done when` is true or no meaningful authorized work remains.
+- Never request duplicate confirmation. If the current user request explicitly names a normally gated action and its target and scope, that request is the exact current-user authorization for that action. Ask only when a required gated action was not explicitly authorized or its target, scope, or a material product/architecture choice is genuinely unclear. Tool availability and a no-approval tool policy never supply missing authority.
+
 ## Outcome and risk contract
 
 Choose effort from consequence and uncertainty, not from the label “non-trivial” or the number of available tools. The owning model chooses decomposition, investigation depth, tools, delegation, reviewers, and the verification portfolio. Expand effort only until the uncertainties that could change the verdict are resolved.
