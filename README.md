@@ -41,13 +41,20 @@ account data, or machine state.
 
 - Codex remains the owner of user intent, architecture decisions, authority,
   conflict resolution, independent verification, and the final verdict.
+- An implementation request authorizes the actions necessary to reach its
+  unambiguous outcome inside the repositories, remotes, services, environments,
+  and accounts already in scope. Codex continues through intermediate stages
+  without duplicate confirmation and asks only for a material scope expansion
+  or a target or end state that cannot be determined safely.
 - Work is delegated only when isolation or parallelism lowers total cost or
   elapsed time without weakening correctness or safety.
 - A worktree has one edit-capable owner at a time. Parallel writers use isolated
   roots and return custody explicitly.
 - Native agents and Codex-owned Claude workers are bounded executors. They do
   not gain commit, push, deploy, credential, destructive, or production
-  authority from their role definition.
+  authority from their role definition. After edit custody returns, the owning
+  Codex session performs any shared or external action already authorized by the
+  active goal.
 - Verification effort follows consequence and uncertainty rather than a fixed
   checklist or task-size label.
 - CodeIndexer is an optional discovery and impact-analysis surface. Its index is
