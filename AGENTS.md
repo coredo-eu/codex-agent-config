@@ -92,6 +92,9 @@ and custody.
   weakening correctness, evidence, safety, authority, or custody. Use the
   smallest useful topology; delegation is valuable only when its context
   transfer and coordination cost still leave a net benefit.
+- This section is an applicable delegation instruction. Apply its executor
+  selection without requiring the user to repeat "use Claude"; the absence of
+  that phrase is not a valid reason to skip a Claude route selected below.
 - When a bounded Codex-owned Claude worker has that net benefit, use the
   `codex-claude-orchestrator:claude-pty-agents` skill. Treat
   `~/.codex/claude-pty-agents.disabled` as its kill-switch source of truth: while

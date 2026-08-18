@@ -103,10 +103,16 @@ The example records these current choices without copying generated state:
 - loopback CodeIndexer MCP at `http://127.0.0.1:8978/mcp`;
 - document, PDF, spreadsheet, presentation, browser, sites, visualization, and
   Codex-Claude orchestrator plugins enabled;
+- a bounded `multi_agent_v2` mode hint that treats applicable AGENTS/skill
+  routing as sufficient authority for Claude transport without enabling
+  proactive native-agent fan-out;
 - JS REPL disabled.
 
 The current high-trust `approval_policy` and `sandbox_mode` values are preserved
 as comments. They are intentionally not activated by copying the example.
+The mode hint customizes a v2 runtime when that runtime is active; it does not
+set `features.multi_agent_v2.enabled` or change the selected reasoning effort.
+Start a new Codex session after changing global instructions or this setting.
 
 ## Installation
 

@@ -43,3 +43,6 @@ enabled = true
 
 [features]
 js_repl = false
+
+[features.multi_agent_v2]
+multi_agent_mode_hint_text = "Applicable AGENTS.md and skill executor-selection rules are explicit delegation instructions. Follow them without requiring the user to repeat a Claude request. Codex-owned Claude PTY transport is not native sub-agent fan-out. Otherwise, do not spawn native Codex sub-agents proactively."

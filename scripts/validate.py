@@ -28,6 +28,12 @@ CONTRACT_FIELDS = (
     "Known evidence",
     "Required handoff",
 )
+MULTI_AGENT_MODE_HINT = (
+    "Applicable AGENTS.md and skill executor-selection rules are explicit delegation "
+    "instructions. Follow them without requiring the user to repeat a Claude request. "
+    "Codex-owned Claude PTY transport is not native sub-agent fan-out. Otherwise, do "
+    "not spawn native Codex sub-agents proactively."
+)
 
 
 def fail(message: str) -> None:
@@ -37,9 +43,15 @@ def fail(message: str) -> None:
 
 def validate_toml() -> None:
     try:
-        tomllib.loads((ROOT / "config.example.toml").read_text())
+        config = tomllib.loads((ROOT / "config.example.toml").read_text())
     except (OSError, tomllib.TOMLDecodeError) as error:
         fail(f"config.example.toml is not valid TOML: {error}")
+
+    mode_hint = config.get("features", {}).get("multi_agent_v2", {}).get(
+        "multi_agent_mode_hint_text"
+    )
+    if mode_hint != MULTI_AGENT_MODE_HINT:
+        fail("config.example.toml must pin the bounded multi-agent runtime hint")
 
     paths = sorted((ROOT / "agents").glob("*.toml"))
     found = {path.stem for path in paths}
@@ -72,6 +84,8 @@ def validate_docs() -> None:
     routing = "`scout` for local operational observation"
     if routing not in agents:
         fail("AGENTS.md native routing must include scout")
+    if "without requiring the user to repeat \"use Claude\"" not in agents:
+        fail("AGENTS.md must make its Claude routing instruction self-activating")
 
     readme = (ROOT / "README.md").read_text()
     table_roles = set(re.findall(r"^\| `([a-z_]+)` \| `gpt-", readme, re.MULTILINE))
