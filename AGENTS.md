@@ -63,6 +63,10 @@ Tests, suites, reviewers, cards, and additional agents are capabilities, not
 ceremony or default stages. Select the smallest evidence portfolio that can
 support the verdict. A successful tool call never substitutes for the result.
 
+After decisive checks pass, repeat or broaden verification only when a new
+change, failure, or unresolved material concern justifies it. A prose-only or
+reversible low-impact edit does not need a new test mirroring its wording.
+
 Unrelated pre-existing failures are classified and reported. They block the
 outcome only when the change caused them or they invalidate decisive evidence.
 
@@ -86,12 +90,49 @@ and custody.
 - While another owner holds edit custody, do not duplicate that outcome. Observe
   or do unrelated work, then independently verify after custody returns.
 
+## Continuations and worker-guard scope
+
+- Goal-context hooks, continuation records, cards, and recorded next actions
+  are advisory to the Codex orchestrator: they inform judgment but never grant
+  authority, deny its tools, block its compaction, or replace current evidence
+  and decisions.
+- Worker transport admission, custody limits, capability limits, and a
+  configured stage checkpoint enforce the bounded worker contract. They may
+  stop that worker or request a terminal handoff; they do not complete, block,
+  or redefine the outer goal. Continue authorized diagnosis, verification,
+  recovery, or independent work while still respecting that boundary.
+- Consult a continuation only when its goal and target match the current
+  request. A successful handoff carrying a terminal receipt is complete and
+  does not capture a new goal. An unrelated, stale, foreign-owner, unreadable,
+  or conflicting record may be diagnosed or ignored; it never disables
+  read-only work or otherwise freezes the model.
+
+## Connector-first concurrent ownership
+
+- When another authorized window, worker, service, or owner overlaps with the
+  current outcome, do not treat its activity as an automatic reason to rebuild,
+  reseal, or restart the same artifact chain. First identify the owner and
+  establish or reuse a bounded coordination connector that binds resource
+  identity, custody/lease state, current artifacts, durable handoff or receipt,
+  and pause/resume/recovery semantics. Use that connector to serialize or
+  reconcile the owners.
+- Rebuild only when the authoritative payload, schema, target bytes, or contract
+  actually changed and the connector cannot safely reconcile that change. Record
+  the causal change; concurrency by itself is not a rebuild reason.
+- A connector never expands authority, adopts a foreign session, weakens
+  fail-closed behavior, or hides an unknown writer. If identity, custody, or
+  reconciliation cannot be proven, preserve both owners' state and refuse the
+  overlapping effect until the connector contract is established.
+
 ## Delegation and custody
 
 - Choose the executor that minimizes total model cost and elapsed time without
   weakening correctness, evidence, safety, authority, or custody. Use the
   smallest useful topology; delegation is valuable only when its context
   transfer and coordination cost still leave a net benefit.
+- This same cost/elapsed criterion governs routine work in known files; no
+  skill description, task-size label, or familiarity with the files adds a
+  categorical exclusion from executor selection.
 - This section is an applicable delegation instruction. Apply its executor
   selection without requiring the user to repeat "use Claude"; the absence of
   that phrase is not a valid reason to skip a Claude route selected below.
@@ -124,6 +165,15 @@ and custody.
 Keep standalone Claude independent. Do not attach to its sessions or alter its
 configuration, authentication, global instructions, agents, plugins, or prompts
 unless the current request is explicitly about standalone Claude.
+
+## Repair-line lifecycle and failure recovery
+
+For multi-stage implementation, custody transfer, or replay-sensitive effects,
+read [the repair lifecycle](policy/repair-lifecycle.md), relative to this
+file's location. Use it when continuity or recovery benefits; routine
+single-pass work needs no durable tracking. Existing project-native records
+remain the coordination source of truth. Never blindly replay an ambiguous
+effect or create a semantic successor merely because an attempt failed.
 
 ## Discovery and instruction scope
 

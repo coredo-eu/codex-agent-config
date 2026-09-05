@@ -4,6 +4,15 @@ service_tier = "default"
 # approval_policy = "never"
 # sandbox_mode = "danger-full-access"
 
+# Optional top-tier main-session override, shown only as an example. Left
+# commented out so defaults stay model-neutral; uncomment only after a
+# deliberate local choice.
+# model = "gpt-6-astra"
+# model_reasoning_effort = "ultra"
+# A main-session model/effort override never retunes the native agent roles in
+# `agents/*.toml` (or Codex-owned Claude workers): each specialist keeps its
+# own configured model and effort independently of this setting.
+
 [agents]
 max_threads = 4
 max_depth = 1
