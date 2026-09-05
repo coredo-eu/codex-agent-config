@@ -1,10 +1,10 @@
 # Codex agent configuration
 
-Reusable instructions and seven optional specialist agents for Codex.
+Global instructions, seven native Codex agent profiles, and an example configuration.
 
 Use this package to give Codex consistent rules for delegating work, checking
-results, and recovering from interrupted tasks. Codex chooses only the agents
-that help with the task; installing the catalog does not start them all.
+results, and recovering from interrupted tasks. The profiles become available
+for delegation; copying the files does not start agents or install plugins.
 
 ## What's included
 
@@ -23,34 +23,39 @@ local changes first; run the copy commands only for files you intend to replace.
 git clone https://github.com/coredo-eu/codex-agent-config.git
 cd codex-agent-config
 
-mkdir -p ~/.codex/agents ~/.codex/policy
-install -m 0644 AGENTS.md ~/.codex/AGENTS.md
-install -m 0644 policy/repair-lifecycle.md ~/.codex/policy/repair-lifecycle.md
-install -m 0644 agents/*.toml ~/.codex/agents/
+codex_config_dir="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_config_dir/agents" "$codex_config_dir/policy"
+install -m 0644 AGENTS.md "$codex_config_dir/AGENTS.md"
+install -m 0644 policy/repair-lifecycle.md "$codex_config_dir/policy/repair-lifecycle.md"
+install -m 0644 agents/*.toml "$codex_config_dir/agents/"
 ```
 
-For another profile, use its `CODEX_HOME` directory instead of `~/.codex`.
-Merge the settings you need from `config.example.toml`; keep your account,
-marketplace, and project settings. On updates, pull the repository, review the
-differences, and copy only the intended changes. Start a new Codex session.
+The commands use `CODEX_HOME` when set, otherwise `~/.codex`. Separately merge
+the settings you need from `config.example.toml` into that directory's
+`config.toml`; preserve existing account, marketplace, and project settings.
+For updates, pull the existing checkout and review the diff before copying
+files. Start a new Codex session to load the changes.
 
 ## Model selection
 
-The example leaves the main model and reasoning level unchanged. It includes
-this commented option for installations that offer GPT-6 Astra:
+The main session uses the model and reasoning level selected in your Codex
+configuration or UI. These lines are commented out in the example, so copying
+it does not select Astra. Enable them only if your installation supports them:
 
 ```toml
 model = "gpt-6-astra"
 model_reasoning_effort = "ultra"
 ```
 
-Changing the main model does not change specialist models or Claude workers.
-Each specialist keeps the settings in its own profile. Adjust those separately
-if the model is unavailable in your installation.
+All seven files in `agents/` explicitly set both model and effort, as listed
+below. Those file settings take precedence when that custom agent is selected.
+Native agents without such overrides can inherit the parent's settings;
+explicit spawn settings and `[agents]` defaults also affect that inheritance.
+See [Codex custom-agent configuration](https://learn.chatgpt.com/docs/agent-configuration/subagents#custom-agents).
 
 ## Optional agents
 
-| Role | Default model | Effort | Sandbox | Intended use |
+| Role | Configured model | Effort | Configured sandbox | Intended use |
 | --- | --- | --- | --- | --- |
 | `source_explorer` | `gpt-5.6-luna` | `medium` | read-only | Direct repository reconstruction and impact evidence. |
 | `codeindexer_explorer` | `gpt-5.6-luna` | `medium` | read-only | Indexed semantic, symbol, and dependency discovery. |
@@ -60,13 +65,26 @@ if the model is unavailable in your installation.
 | `security_reviewer` | `gpt-5.6-sol` | `high` | read-only | Focused security, privacy, credential, and authorization review. |
 | `scout` | `gpt-5.6-luna` | `medium` | read-only | Local runtime and operational-state observation. |
 
-This is the canonical semantic taxonomy for the repository family. The related
-Claude package supplies equivalent roles in Claude's own format; those files
-are intentionally not byte-identical.
+The sandbox column records the values in the files. A parent's live permission
+settings can override those defaults. The test runner's ban on source edits is
+an instruction; `workspace-write` permits filesystem writes for test artifacts.
 
-CodeIndexer is needed only for indexed discovery. The
-[Codex Claude Orchestrator](https://github.com/coredo-eu/codex-claude-orchestrator)
-plugin is needed only when you want Codex to delegate work to Claude Code.
+## Example settings and integrations
+
+- Native delegation is limited to four concurrent child threads and one level
+  of nesting. These are native Codex limits, separate from Claude worker capacity.
+- The example sets `service_tier = "default"`. Its delegation hint is for
+  hosts using `multi_agent_v2`; the template does not enable that feature.
+- The two MCP entries configure OpenAI documentation and a local CodeIndexer
+  endpoint. Keep only the entries you use; CodeIndexer must already be running
+  at the configured address for indexed discovery.
+- Nine plugin entries enable artifact tools, browser tools, and the Claude
+  orchestrator. They assume those plugins are installed in their named
+  marketplaces; the entries do not install them. Merge only the ones you use.
+
+Claude Code workers are provided and configured by the separate
+[orchestrator plugin](https://github.com/coredo-eu/codex-claude-orchestrator).
+This repository's seven TOML profiles describe native Codex agents.
 
 ## Validate
 
@@ -76,8 +94,9 @@ With Python 3.11 or newer:
 python3 scripts/validate.py
 ```
 
-The validator checks TOML, the seven agent profiles, their model and permission
-settings, and the shared task contract.
+The validator checks TOML, the seven profiles, the matching README table, and
+the shared task contract. It does not test model access, plugin installation,
+MCP connectivity, or runtime permission enforcement.
 
 ## Related repositories
 

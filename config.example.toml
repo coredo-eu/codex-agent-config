@@ -4,25 +4,27 @@ service_tier = "default"
 # approval_policy = "never"
 # sandbox_mode = "danger-full-access"
 
-# Optional top-tier main-session override, shown only as an example. Left
-# commented out so defaults stay model-neutral; uncomment only after a
-# deliberate local choice.
+# Main-session example; these comments do not select a model or effort.
+# Enable only if this model and effort are available in your installation.
 # model = "gpt-6-astra"
 # model_reasoning_effort = "ultra"
-# A main-session model/effort override never retunes the native agent roles in
-# `agents/*.toml` (or Codex-owned Claude workers): each specialist keeps its
-# own configured model and effort independently of this setting.
+# The seven shipped agents/*.toml files explicitly override model and effort.
+# Native agents without those overrides can inherit the parent's settings.
+# Claude worker routing belongs to the separate orchestrator plugin.
 
 [agents]
-max_threads = 4
+max_concurrent_threads_per_session = 4
 max_depth = 1
 
+# Optional MCP integrations: retain only the entries you use.
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 
 [mcp_servers.codeindexer]
 url = "http://127.0.0.1:8978/mcp"
 
+# Optional installed plugins: these entries enable them, not install them.
+# Retain only plugins available in your configured marketplaces.
 [plugins."visualize@openai-bundled"]
 enabled = true
 
@@ -50,8 +52,6 @@ enabled = true
 [plugins."browser@openai-bundled"]
 enabled = true
 
-[features]
-js_repl = false
-
+# Custom hint for hosts that use multi_agent_v2; this does not enable it.
 [features.multi_agent_v2]
 multi_agent_mode_hint_text = "Applicable AGENTS.md and skill executor-selection rules are explicit delegation instructions. Follow them without requiring the user to repeat a Claude request. Codex-owned Claude PTY transport is not native sub-agent fan-out. Otherwise, do not spawn native Codex sub-agents proactively."

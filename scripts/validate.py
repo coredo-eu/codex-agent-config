@@ -95,8 +95,6 @@ def validate_docs() -> None:
         row = f"| `{role}` | `{model}` | `{effort}` | {sandbox} |"
         if row not in readme:
             fail(f"README.md role table is inconsistent for {role}")
-    if "canonical semantic taxonomy" not in readme or "intentionally not byte-identical" not in readme:
-        fail("README.md must describe surface-specific adapters without byte-identical claims")
 
 
 def main() -> None:
